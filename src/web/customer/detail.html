@@ -35,7 +35,9 @@
       <button class="btn btn-warning" id="update-button">編集</button>
     </div>
   </div>
+
   <script type="module">
+    import config from '../config.js';
     // 詳細情報を取得する処理
     // list.htmlから送られたURL(http://localhost:5403/detail.html?id=${customer.id})
     //　から、?(クエリ)以降のパラメータを取得する
@@ -43,7 +45,7 @@
     // ↑のURLのidの値を取得
     const customerId = params.get("id")
     // APIにfetchしてidの顧客情報をgetする
-    const response = fetch(`http://localhost:5403/customer/${customerId}`)
+    const response = fetch(config.apiUrl + `/customer/${customerId}`)
       .then(response => response.json())
       // データが来たらやる処理
       .then(data => {
@@ -57,7 +59,7 @@
     document.getElementById("delete-button").addEventListener('click',
       function (event) {
         if (window.confirm("本当に削除しますか？")) {
-          const response = fetch(`http://localhost:5403/customer/${customerId}`, {
+          const response = fetch(config.apiUrl + `/customer/${customerId}`, {
             method: 'DELETE'
           })
             .then(response => response.json())
