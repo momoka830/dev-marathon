@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: "/api_momoka_yamazaki",
+  apiUrl: "http://localhost:5403",
 };
 
 export default config;
