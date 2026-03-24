@@ -40,7 +40,7 @@
         const customerId = params.get("id")
 
         // DBから現在の顧客情報を取得してフォームの初期値に入れる
-        fetch(config.apiUrl + `customer/${customerId}`)
+        fetch(config.apiUrl + `/customer/${customerId}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById("companyName").value = data.company_name
