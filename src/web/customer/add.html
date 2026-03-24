@@ -27,33 +27,28 @@
                 <label for="location">所在地:</label>
                 <input type="text" class="form-control" id="location" name="location" required>
             </div>
+
             <button type="submit" class="btn btn-primary">送信</button>
         </form>
     </div>
     <script type="module">
         import config from '../config.js';
 
-        document.getElementById('customer-form').addEventListener('submit', function(e) {
+        document.getElementById('customer-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            const formData = new FormData(this);
-            fetch(config.apiUrl + '/add-customer', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams([...formData])
-            }).then(response => response.json())
-              .then(data => {
-                if(data.success) {
-                    alert('顧客情報が正常に保存されました。');
-                    // フォームをリセット
-                    document.getElementById('customer-form').reset();
-                } else {
-                    alert('保存に失敗しました。');
-                }
-              })
-              .catch(error => console.error('Error:', error));
+
+            const companyName = document.getElementById("companyName").value
+            const industry = document.getElementById("industry").value
+            const contact = document.getElementById("contact").value
+            const location = document.getElementById("location").value
+            sessionStorage.setItem("companyName", companyName)
+            sessionStorage.setItem("industry", industry)
+            sessionStorage.setItem("contact", contact)
+            sessionStorage.setItem("location", location)
+
+            window.location.href = "./add-confirm.html"
         });
+
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

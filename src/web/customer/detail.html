@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>顧客詳細画面</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">顧客詳細</h1>
+    <table class="table">
+      <tr>
+        <th>会社名</th>
+        <td id="companyName"></td>
+      </tr>
+      <tr>
+        <th>業種</th>
+        <td id="industry"></td>
+      </tr>
+      <tr>
+        <th>連絡先</th>
+        <td id="contact"></td>
+      </tr>
+      <tr>
+        <th>所在地</th>
+        <td id="location"></td>
+      </tr>
+    </table>
+    <div class="mt-3">
+      <a href="./list.html">
+        <button class="btn btn-primary">リストに戻る</button>
+      </a>
+      <button class="btn btn-danger" id="delete-button">顧客情報を削除</button>
+      <button class="btn btn-warning" id="update-button">編集</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import config from '../config.js';
+    // 詳細情報を取得する処理
+    // list.htmlから送られたURL(http://localhost:5403/detail.html?id=${customer.id})
+    //　から、?(クエリ)以降のパラメータを取得する
+    const params = new URLSearchParams(document.location.search)
+    // ↑のURLのidの値を取得
+    const customerId = params.get("id")
+    // APIにfetchしてidの顧客情報をgetする
+    const response = fetch(config.apiUrl + `/customer/${customerId}`)
+      .then(response => response.json())
+      // データが来たらやる処理
+      .then(data => {
+        document.getElementById("companyName").textContent = data.company_name
+        document.getElementById("industry").textContent = data.industry
+        document.getElementById("contact").textContent = data.contact
+        document.getElementById("location").textContent = data.location
+      })
+
+    // 顧客情報を削除する処理
+    document.getElementById("delete-button").addEventListener('click',
+      function (event) {
+        if (window.confirm("本当に削除しますか？")) {
+          const response = fetch(config.apiUrl + `/customer/${customerId}`, {
+            method: 'DELETE'
+          })
+            .then(response => response.json())
+            .then(data => {
+              window.location.href = "./list.html"
+            })
+            .catch(error => console.error(error))
+        }
+      }
+    )
+
+    // 顧客情報を編集する処理
+    document.getElementById("update-button").addEventListener("click",
+      function () { location.href = `./update.html?id=${customerId}` }
+    )
+
+  </script>
+</body>
+</html>

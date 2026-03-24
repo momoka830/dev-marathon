@@ -10,9 +10,57 @@
 <body>
     <div class="container mt-5">
         <!-- ここにHTMLを書く -->
+        <table class="table">
+            <tr>
+                <th>会社名</th>
+                <td id="companyName"></td>
+            </tr>
+            <tr>
+                <th>業種</th>
+                <td id="industry"></td>
+            </tr>
+            <tr>
+                <th>連絡先</th>
+                <td id="contact"></td>
+            </tr>
+            <tr>
+                <th>所在地</th>
+                <td id="location"></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary" id="add-button">追加</button>
     </div>
     <script type="module">
-        <!-- ここにJSを書く -->
+        import config from '../config.js';
+
+        //ここにJSを書く"
+        const companyName = sessionStorage.getItem("companyName")
+        const industry = sessionStorage.getItem("industry")
+        const contact = sessionStorage.getItem("contact")
+        const location = sessionStorage.getItem("location")
+
+        document.getElementById("companyName").textContent = companyName
+        document.getElementById("industry").textContent = industry
+        document.getElementById("contact").textContent = contact
+        document.getElementById("location").textContent = location
+
+        document.getElementById("add-button").addEventListener('click',
+            function (event) {
+                const response = fetch(config.apiUrl + "/add-customer", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({
+                        companyName: companyName,
+                        industry: industry,
+                        contact: contact,
+                        location: location
+                    })
+                }).then(response => response.json())
+                    .then(data => {
+                        window.location.href = "./list.html"
+                    })
+                    .catch(error => console.error(error))
+            })
     </script>
     <!-- BootstrapのJavaScriptの読み込み -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
