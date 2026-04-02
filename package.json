@@ -1,0 +1,25 @@
+{
+  "name": "dev-marathon",
+  "version": "1.0.0",
+  "description": "- 顧客追加: http://dev.marathon.rplearn.net/momoka_yamazaki/customer/add.html\r   - 顧客一覧: http://dev.marathon.rplearn.net/momoka_yamazaki/customer/list.html",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/momoka830/dev-marathon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/momoka830/dev-marathon/issues"
+  },
+  "homepage": "https://github.com/momoka830/dev-marathon#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.0",
+    "@types/node": "^25.5.0"
+  }
+}
